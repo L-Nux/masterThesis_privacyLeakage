@@ -1,0 +1,516 @@
+##### CONTENT #####
+(A) General info on NER tagging
+(B) Extraction of sensitive data + Query patterns
+(C) Information leakage in LMs
+(D) Differential Privacy
+(E) Knowledge Databases
+(O) BERT
+
+
+###(A) General info on NER tagging###
+(A1)
+title: A survey on Deep Learning for NER
+author(s): Lie et al.
+year: 2020
+abstract: Named entity recognition (NER) is the task to identify mentions of rigid designators from text belonging to predefined
+semantic types such as person, location, organization etc. NER always serves as the foundation for many natural language
+applications such as question answering, text summarization, and machine translation. Early NER systems got a huge success in
+achieving good performance with the cost of human engineering in designing domain-specific features and rules. In recent years, deep
+learning, empowered by continuous real-valued vector representations and semantic composition through nonlinear processing, has
+been employed in NER systems, yielding stat-of-the-art performance. In this paper, we provide a comprehensive review on existing
+deep learning techniques for NER. We first introduce NER resources, including tagged NER corpora and off-the-shelf NER tools. Then,
+we systematically categorize existing works based on a taxonomy along three axes: distributed representations for input, context
+encoder, and tag decoder. Next, we survey the most representative methods for recent applied techniques of deep learning in new
+NER problem settings and applications. Finally, we present readers with the challenges faced by NER systems and outline future
+directions in this area.
+content: definition and history of NER; List of annotated datasets for English NER; distinction between traditional and DL approaches to NER;
+---
+(A2)
+title: A Survey on Recent Named Entity Recognition and
+Relationship Extraction Techniques on Clinical Texts
+author(s): Bose et al.
+year: 2021
+abstract: Significant growth in Electronic Health Records (EHR) over the last decade has provided
+an abundance of clinical text that is mostly unstructured and untapped. This huge amount of
+clinical text data has motivated the development of new information extraction and text mining
+techniques. Named Entity Recognition (NER) and Relationship Extraction (RE) are key components
+of information extraction tasks in the clinical domain. In this paper, we highlight the present status
+of clinical NER and RE techniques in detail by discussing the existing proposed NLP models for the
+two tasks and their performances and discuss the current challenges. Our comprehensive survey on
+clinical NER and RE encompass current challenges, state-of-the-art practices, and future directions in
+information extraction from clinical text. This is the first attempt to discuss both of these interrelated
+topics together in the clinical context. We identified many research articles published based on
+different approaches and looked at applications of these tasks. We also discuss the evaluation metrics
+that are used in the literature to measure the effectiveness of the two these NLP methods and future
+research directions.
+content: definition of Clinical NER and Relationship Extraction (RE); overview on Clinical NER research articles;
+---
+(A3) 
+title: Introduction to the CoNLL-2003 Shared Task: Language-Independent Named Entity Recognition
+auhtor(s): sang, De Meulder
+year: 2003
+abstract: We describe the CoNLL-2003 shared task:
+language-independent named entity recognition.
+We give background information on
+the data sets (English and German) and
+the evaluation method, present a general
+overview of the systems that have taken
+part in the task and discuss their performance.
+- content:
++ 4 types of named entities: persons PER, locations LOC, organizations ORG, names of miscellaneous entities MISC
++ dataset consists of 8 files covering two languages (Eng and Ger)
++ English data was taken from the Reuters news corpus between aug 1996 - aug 1997
++ German data was taken from the ECI Multilingual Text Corpus  (newspaper Frankfurter Rundschau) from Sep-Dec 1992
++ English data was tagged and chunked by the memory-based MBT tagger (Daelemans et als., 2002)
++ NER was done by hand following MUC conventions (Chinchor et al., 1999)
++ Table 2: number of named entities per data file
++ data format: all data files contain one word/line: word | POS-tag | chunk-tag | NER-tag
++ O...outside of NE; I...inside of NE; B...immediately next to (--> IOB scheme by Ramshaw and Marcus 1995)
+
+###(B) Extraction of sensitive data + Query patterns###
+(B1)
+title: Are Clinical BERT Models Privacy Preserving?
+author(s): Vakili, Dalianis
+year: 2021
+abstract: Language models may be trained on data that contain personal
+information, such as clinical data. Such sensitive data
+must not leak for privacy reasons. This article explores
+whether BERT models trained on clinical data are susceptible
+to training data extraction attacks.
+Multiple large sets of sentences generated from the model
+with top-k sampling and nucleus sampling are studied. The
+sentences are examined to determine the degree to which
+they contain information associating patients with their conditions.
+The sentence sets are then compared to determine if
+there is a correlation between the degree of privacy leaked and
+the linguistic quality attained by each generation technique.
+We find that the relationship between linguistic quality and
+privacy leakage is weak and that the risk of a successful training
+data extraction attack on a BERT-based model is small.
+model: clinical BERT
+dataset: MIMIC-III (patient-related text corpus); This is a large and freely available dataset consisting
+of de-identified clinical data of more than 40,000 patients who stayed at the Beth Israel
+Deaconess Medical Center between 2001 and 2012. This dataset also consists of freetext
+notes, besides also providing a demo dataset with information for 100 patients.
+methods:
+- text generation with top-k sampling and nucleus sampling
+- NER tagger to locate PER
+goal: detect names and correlate them with medical conditions
+---
+(B2)
+title: Discovery of sensitive data with Natural Language Processing (Master thesis)
+author(s): Dias
+year: 2019
+abstract: The process of protecting sensitive data is continually growing and becoming increasingly important,
+especially as a result of the directives and laws imposed by the European Union. The effort
+to create automatic systems is continuous, but in most cases, the processes behind them are
+still manual or semi-automatic. In this work, we have developed a component that can extract
+and classify sensitive data, from unstructured text information in European Portuguese. The
+objective was to create a system that allows organizations to understand their data and comply
+with legal and security purposes. We studied a hybrid approach to the problem of Named
+Entities Recognition for the Portuguese language. This approach combines several techniques
+such as rule-based/lexical-based models, machine learning algorithms and neural networks. The
+rule-based and lexical-based approaches were used only for a set of specific classes. For the remaining
+classes of entities, SpaCy and Stanford NLP tools were tested, two statistical models –
+Conditional Random Fields and Random Forest – were implemented and, finally, a Bidirectional-
+LSTM approach as experimented. The best results were achieved with the Stanford NER model
+(86.41%), from the Stanford NLP tool. Regarding the statistical models, we realized that Conditional
+Random Fields is the one that can obtain the best results, with a f1-score of 65.50%. With
+the Bi-LSTM approach, we have achieved a result of 83.01%. The corpora used for training and
+testing were HAREM Golden Collection, SIGARRA News Corpus and DataSense NER Corpus. 
+datasets: European Portuguese --> HAREM consists of a set of 129 text documents; They are from several genres, such as: News, Interviews, Blogs, Publicity
+Texts, Web Pages, etc.;
+focus: business documents such as contracts, CVs, personal data forms, and other documents present in the companies’
+documentary databases
+content: distinction between sensitive and personal data; GDPR; categories and types of sensitive data (Table 3.1);
+NER framework: combination of rule-based models (p.35-41) + Lexicon-Based Models (p.41-43) + Machine Learning Models (p.43-52)
+goal: the Recognition and Classification of sensitive data,
+taking into account the group of classes of sensitive and personal data
+---
+(B3)
+title: Investigating the Impact of Pre-trained Word Embeddings on Memorization in Neural Networks
+author(s): Thomas et al.
+year: 2020
+abstract: The sensitive information present in the training data, poses
+a privacy concern for applications as their unintended memorization during
+training can make models susceptible to membership inference and
+attribute inference attacks. In this paper, we investigate this problem in
+various pre-trained word embeddings (GloVe, ELMo and BERT) with
+the help of language models built on top of it. In particular, firstly sequences
+containing sensitive information like a single-word disease and
+4-digit PIN are randomly inserted into the training data, then a language
+model is trained using word vectors as input features, and memorization
+is measured with a metric termed as exposure. The embedding dimension,
+the number of training epochs, and the length of the secret information
+were observed to aect memorization in pre-trained embeddings.
+Finally, to address the problem, dierentially private language models
+were trained to reduce the exposure of sensitive information.
+keywords: differential privacy, word representations, unintended memorization
+- research has shown recovery of sensitive information: memorization of training data or membership inference attack  
+- leakage of publicly available models (Twitter-Glove, Clinical Bert) has not been quantified
+- method: simple LM with word vectors as input
+- exposure metric: to measure unintended memorization in neural networks; it uses a sorted list of log-perplexities of s[^r] (secrets);
+Perplexity is a metric used to judge how good a language model is (see: https://towardsdatascience.com/perplexity-in-language-models-87a196019a94).
+Is a model surprised by certain input (is it perplex)?
+- Two types of secrets to study how the length of the secret aects its memorization: single-word-disease and four-digit-PIN;
+- Two types of insertions to test the effect on the model by multiple secrets in the dataset: single insertion (either disease or PIN) and multiple insertions
+- result: differential privacy helps reducing memorization, but slows down training process.
+---
+(B4)
+title: Membership inference attacks against machine learning models
+author(s): Shokri et al
+year: 2017
+content:
+---
+(B5)
+title: Membership Inference Attacks on Sequence-to-Sequence Models: Is My Data In Your Machine Translation System?
+author(s): Hisamoto et al
+year: 2020
+content:
+---
+
+###(C) Information leakage in LMs###
+(C1)
+title: The Secret Sharer: Evaluating and Testing
+Unintended Memorization in Neural Networks
+author(s): Carlini et al.
+year: 2019
+abstract: This paper describes a testing methodology for quantitatively
+assessing the risk that rare or unique training-data
+sequences are unintentionally memorized by generative sequence
+models—a common type of machine-learning model.
+Because such models are sometimes trained on sensitive data
+(e.g., the text of users’ private messages), this methodology
+can benefit privacy by allowing deep-learning practitioners to
+select means of training that minimize such memorization.
+In experiments, we show that unintended memorization is
+a persistent, hard-to-avoid issue that can have serious consequences.
+Specifically, for models trained without consideration
+of memorization, we describe new, efficient procedures
+that can extract unique, secret sequences, such as credit card
+numbers. We show that our testing strategy is a practical and
+easy-to-use first line of defense, e.g., by describing its application
+to quantitatively limit data exposure in Google’s
+Smart Compose, a commercial text-completion neural network
+trained on millions of users’ email messages.
+Testing methodology: threat model using targeted, probing queries
+Testing procedure:
+- insert randomly chosen "canary" sequences into training data
+- exposure metric to measure the relative difference in perplexity between canaries and non-inserted sequences
+term: perplexity = natural likelihood measure
+The perplexity of a sequence measures how well the L; predicts the tokens in that sequences.
+If the perplexity is low, then the model is not "surprised" by the sequence and has assigned 
+on average a high probability to each subsequent token in the sequence. 
+---
+(C2)
+title: Extracting Training Data from Large Language Models
+author(s): Carlini et al.
+year: 2020
+abstract: It has become common to publish large (billion parameter)
+language models that have been trained on private datasets.
+This paper demonstrates that in such settings, an adversary can
+perform a training data extraction attack to recover individual
+training examples by querying the language model.
+We demonstrate our attack on GPT-2, a language model
+trained on scrapes of the public Internet, and are able to extract
+hundreds of verbatim text sequences from the model’s training
+data. These extracted examples include (public) personally
+identifiable information (names, phone numbers, and email
+addresses), IRC conversations, code, and 128-bit UUIDs. Our
+attack is possible even though each of the above sequences
+are included in just one document in the training data.
+We comprehensively evaluate our extraction attack to understand
+the factors that contribute to its success. Worryingly,
+we find that larger models are more vulnerable than smaller
+models. We conclude by drawing lessons and discussing possible
+safeguards for training large language models.
+Testing methodology: adversary with black-box input-output access to a LM model; indiscriminately extract training data (not targeted)
+Testing procedure:
+- generate large quantity of data
+- predict which outputs may contain memorized text using membership inference attack. Past membership inference attacks
+rely on the observation that models tend to assign higher confidence to examples that are present in the training data
+- internet-search to manually mark the text samples as memorized/not memorized
+---
+(C3)
+title: What does GPT-3 “know” about me? 
+author(s): Melissa Heikkilä
+year: 2022
+url: https://www.technologyreview.com/2022/08/31/1058800/what-does-gpt-3-know-about-me/?utm_medium=tr_social&utm_campaign=site_visitor.unpaid.engagement&utm_source=Twitter
+content:
+LLMs such as OpenAI’s GPT-3, Google’s LaMDA, and Meta’s OPT-175B, used to power chatbots;
+Google and OpenAI do not release information about the data sets that have been used to build their language models;
+efforts to improve the privacy of machine learning and regulate the technology are still in their infancy;
+most large language models are very US-focused. The US does not have a federal data protection law;
+Occasionally, the model may generate information that is not factually accurate because it is attempting to produce
+plausible text based on statistical patterns in its training data and context provided by the user;
+fairly easy for hackers to actively tamper with a data set by “poisoning” it with data of their choosing in order to create insecurities that allow for security breaches;
+It’s not just personal data. The data sets are likely to include data that is copyrighted, such as source code and books;
+Private data is often scattered throughout the data sets used to train LLMs, many of which are scraped off the open internet;
+The more often those personal bits of information appear in the training data, the more likely the model is to memorize them, and the stronger the association becomes;
+---
+(C4)
+title: Are Large Pre-Trained Language Models Leaking your Personal Information?
+author(s): Huang et al.
+year: 2022
+content:
+- two capacities that may cause privacy leakage:
+a) memorization:information can be recovered with a specific prefix (using greedy search), e.g. my security number is ...
+b) association: query attack with owner's name (using greedy search), e.g. the email-address of Tom is ...
+- focus of research: recovery of email-addresses
+- task: measure the risk of PLMs in terms of leaking personal information
+- attack: 
+a) given the context, examine whether the model can recover the email address
+b) given the name of the owner, query the model for the associated email address with an appropriate prompt.
+- 3238 (name, email) pairs for experiments
+- results:
++ low accuracy for context (Table 2) and domain unknown (Table 3) approach
++ huge improvement in prediction accuracy when domain is known (Table 4)
++ PLMs do memorize email-addresses, but do not understand the exact associations between names and email-addresses
++ PLMs make predictions based on the memorization of sequences --> longer contexts can discover more memorization
++ PLMs with more parameters are able to memorize more trianing data;
++ Some conditions increase the attack success rate: long text patterns, knowledge about the owner, scale of the model
+---
+(C5)
+title: Training Data Leakage Analysis in Language Models
+author(s): Inan et al.
+year: 2021
+content:
+- quality of a LM is commonly measured by perplexity (likelihood of text sequences) and top-k accuracy (ratio of the number of correct predictions to the total number of tokens). 
+- tab attack: the unique sequences that could be leaked via the tab attack when then model is queried with the corresponding context
+- attack on transfomer-based model: GPT-2
+- differentiation between public LMs (trained with public dataset) and private LMs (trained with privat dataset)
+- attacks rely on the model output beyond top-1 or top-3 predictions along with the perplexity measure
+
+---
+(C6)
+title:When Machine Learning Models Leak: An Exloration of Synthetic Training Data
+author(s): Slokom et al.
+year:2022
+content:
+---
+(C7)
+title: Are Clinical BERT Models Privacy Preserving? The Difficulty of Extracting Patient-Condition Associations
+author(s): Vakili and Dalianis
+year: 2021
+content:
+---
+(C8)
+title: Quantifying Memorization Across Neural Language Models
+author(s): Carlini et al.
+year: 2022
+content:
+---
+(C9)
+title: ML Privacy Meter: Aiding Regulatory Compliance by Quantifying the Privacy Risks of Machine Learning
+author(s): Murakonda and Shokri
+year: 2020
+content:
+---
+
+###(D) Differential Privacy###
+(D1)
+title: The Algorithmic Foundations of Differential Privacy
+auhtor(s): Dwork & Roth
+year: 2014
+abstract: The problem of privacy-preserving data analysis has a long history
+spanning multiple disciplines. As electronic data about individuals
+becomes increasingly detailed, and as technology enables ever more
+powerful collection and curation of these data, the need increases for a
+robust, meaningful, and mathematically rigorous definition of privacy,
+together with a computationally rich class of algorithms that satisfy
+this definition. Differential Privacy is such a definition.
+After motivating and discussing the meaning of differential privacy,
+the preponderance of this monograph is devoted to fundamental techniques
+for achieving differential privacy, and application of these techniques
+in creative combinations, using the query-release problem as an
+ongoing example. A key point is that, by rethinking the computational
+goal, one can often obtain far better results than would be achieved by
+methodically replacing each step of a non-private computation with a
+differentially private implementation. Despite some astonishingly powerful
+computational results, there are still fundamental limitations —
+not just on what can be achieved with differential privacy but on what
+can be achieved with any method that protects against a complete
+breakdown in privacy. Virtually all the algorithms discussed herein
+maintain differential privacy against adversaries of arbitrary computational
+power. Certain algorithms are computationally intensive, others
+are efficient. Computational complexity for the adversary and the
+algorithm are both discussed.
+We then turn from fundamentals to applications other than queryrelease,
+discussing differentially private methods for mechanism design
+and machine learning. The vast majority of the literature on differentially
+private algorithms considers a single, static, database that is subject
+to many analyses. Differential privacy in other models, including
+distributed databases and computations on data streams is discussed.
+Finally, we note that this work is meant as a thorough introduction
+to the problems and techniques of differential privacy, but is not
+intended to be an exhaustive survey—there is by now a vast amount of
+work in differential privacy, and we can cover only a small portion of it.
+- Definition of differential privacy:
+Differential privacy will provide privacy by process; in particular it will introduce randomness.
+Differential privacy promises that the behavior of an algorithm will be roughly unchanged even if a single entry in
+the database is modified.
+Differential privacy promises to protect individuals
+from any additional harm that they might face due to their data
+being in the private database x that they would not have faced had
+their data not been part of x.
+- important concepts/terms:
++ query: a query is a function to be applied to a database
++ privacy mechanism: A privacy mechanism, or simply a mechanism, is an algorithm that
+takes as input a database, a universe X of data types (the set of all
+possible database rows), random bits, and, optionally, a set of queries,
+and produces an output string
+***read until chapter 3***
+---
+(D2)
+title: Deep Learning with Differential Privacy
+auhtor(s): Abadi et al.
+year: 2016
+abstract: Machine learning techniques based on neural networks are
+achieving remarkable results in a wide variety of domains.
+Often, the training of models requires large, representative
+datasets, which may be crowdsourced and contain sensitive
+information. The models should not expose private information
+in these datasets. Addressing this goal, we develop new
+algorithmic techniques for learning and a refined analysis of
+privacy costs within the framework of dfiferential privacy.
+Our implementation and experiments demonstrate that we
+can train deep neural networks with non-convex objectives,
+under a modest privacy budget, and at a manageable cost in
+software complexity, training efficiency, and model quality.
+- claim:
+Differential privacy has several properties that make it
+particularly useful in applications such as ours: composability,
+group privacy, and robustness to auxiliary information.
+- approach:
++ They aim to control the influence of the training data during
+the training process, specificcally in the SGD computation.
++ They compute the privacy loss of the mechanism based on the information
+maintained by the privacy accountant.The accountant procedure computes the privacy cost at each access to the training data;
+Privacy loss is a random variable dependent on the random noise added to the algorithm;
+- implementation:
++ with Python and TensorFlow
++ main component: PrivacyAccountant which keeps track of privacy spending over the course of training.
++ moments accountant: mechansim for tracking privacy loss
++ algorithms are based on a differentially private version of stochastic gradient descent
+- application:
+to image datasets (MNIST & CIFAR-10)
+---
+(D3)
+title: One size does not fit all: Investigating strategies for differentially-private
+learning across NLP tasks
+author(s): Senge et al.
+year: 2021
+abstract: Preserving privacy in training modern NLP
+models comes at a cost. We know that
+stricter privacy guarantees in differentiallyprivate
+stochastic gradient descent (DP-SGD)
+generally degrade model performance. However,
+previous research on the efficiency of DPSGD
+in NLP is inconclusive or even counterintuitive.
+In this short paper, we provide a
+thorough analysis of different privacy preserving
+strategies on seven downstream datasets in
+five different ‘typical’ NLP tasks with varying
+complexity using modern neural models.
+We show that unlike standard non-private approaches
+to solving NLP tasks, where bigger
+is usually better, privacy-preserving strategies
+do not exhibit a winning pattern, and each
+task and privacy regime requires a special treatment
+to achieve adequate performance.
+- for experiments: 7 widely-used datasets covering 5 standard NLP tasks (sentiment analysis, sequence tagging (NER and POS), text classification, question-answering)
+- privacy budget: is an upper bound on the privacy cost, where a smaller pb guarantees stronger privacy;
+when exposed to DP, for NER only the most common tags are well predicted (outside tag)
+-results: skewed class distribution hurts the perfromacne with DP-SGD
+---
+(D4)
+title: Training Text-to-Text Transformers with Privacy Guarantees
+author(s): Ponomareva et al.
+year: 2022
+abstract: Recent advances in NLP often stem from large
+transformer-based pre-trained models, which
+rapidly grow in size and use more and more
+training data. Such models are often released
+to the public so that end users can fine-tune
+them on a task dataset. While it is common
+to treat pre-training data as public, it may
+still contain personally identifiable information
+(PII), such as names, phone numbers, and
+copyrighted material. Recent findings show
+that the capacity of these models allows them
+to memorize parts of the training data, and suggest
+differentially private (DP) training as a potential
+mitigation. While there is recent work
+on DP fine-tuning of NLP models, the effects
+of DP pre-training are less well understood: it
+is not clear how downstream performance is
+affected by DP pre-training, and whether DP
+pre-training mitigates some of the memorization
+concerns. We focus on T5 and show that
+by using recent advances in JAX and XLA we
+can train models with DP that do not suffer a
+large drop in pre-training utility, nor in training
+speed, and can still be fine-tuned to high
+accuracy on downstream tasks (e.g. GLUE).
+Moreover, we show that T5’s span corruption
+is a good defense against data memorization.
+- they explore how well DP mitigates privacy risks and
+how it affects pre-training and downstream performance.
+term "private": a model can be described as private if it is robust
+to membership attacks, training data extraction attacks,
+or to attacks that attempt to infer some private
+attribute (e.g., the race of a speaker) from the data.
+- method: private pre-training and public fine-tuning; DP training - DP training is usually
+achieved via gradient noise or perturbing the loss.
+- aim : verify whether DP pretraining can mitigate some privacy risks
+- model: T5 small
+- dataset: The Colossal Clean Crawled Corpus, C4
+- training objective: predict next tokens given the context 
+- metric for gauging memorization: exact match, token accuracy, token-level accuracy and median edit distance
+- results: better pre-training utility does not directly translate into better downstream
+fine-tuning performance; The take-away message here is that if memorization is of a concern, one
+way to address it is to use span corruption training objective;
+###(E) Knowledge Databases ###
+(E1)
+title: Non-named Entities - The Silent Majority
+auhtor(s): Paris & Suchanek 
+year: 2021
+abstract: Knowledge Bases (KBs) usually contain named entities.
+However, the majority of entities in natural language text are not named.
+In this position paper, we first study the nature of these entities. Then
+we explain how they could be represented in KBs. Finally, we discuss
+open challenges for adding non-named entities systematically to KBs.
+- content:
++ definition of a noun phrase and named entity
++ overview of modeling of entities in various KBs(DBPedia, Yago etc.)
+---
+(E2)
+title: YAGO 4: A Reason-able Knowledge Base
+author(s): Tanon et al.
+year: 2020
+abstract: YAGO is one of the large knowledge bases in the Linked
+Open Data cloud. In this resource paper, we present its latest version,
+YAGO 4, which reconciles the rigorous typing and constraints of
+schema.org with the rich instance data of Wikidata. The resulting resource
+contains 2 billion type-consistent triples for 64 Million entities,
+and has a consistent ontology that allows semantic reasoning with OWL 2
+description logics.
+- content:
++ YAGO 4 combines Wikidata and schema.org
++ human-readable URIs for all entities (e.g., Bischmisheim_Q866094).
++ YAGO 4 is made available in three "flavors":
+a) Full --> all data from wikidata
+b) Wikipedia --> only instances that have a wikipedia article
+c) English Wikipedia --> only instances that have an English wikipedia article
++ YAGO 4 is available under
+a Creative Commons Attribution-ShareAlike License.
+
+###(O) BERT ###
+title: BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding
+auhtor(s): Devlin et al.
+year: 2018
+- code and pre-trained models available at https://github.com/google-research/bert (see tokenization!)
+- notes:
++ problem? English Wikipedia is used as corpus in pre-training of BERT
++ glue benchmark: https://gluebenchmark.com/leaderboard
++ no real NER task in pre-training or fine-tuning of BERT
