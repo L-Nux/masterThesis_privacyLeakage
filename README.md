@@ -1,7 +1,7 @@
 # Identifying Senstive Information Leakage from Neural Taggers
 
 ## General
-This repository collects code and data for the Master's with the tirle "Identifying Senstive Information Leakage from Neural Taggers".
+This repository collects code and data for the Master's with the title "Identifying Senstive Information Leakage from Neural Taggers".
 
 ## Data Description
 The data used for the experiment was obtained from two different sources:
@@ -122,8 +122,8 @@ POSITIVE samples:
 
 - Concept & Definition :heavy_check_mark:
 - Data Preparation: :heavy_check_mark:
-- Experimenting: :on:
-- Development of Ranking/Scoring System: :soon:
+- Experimenting: :heavy_check_mark:
+- Development of Ranking/Scoring System: :heavy_check_mark:
 
 ## Literature Review
 
