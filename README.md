@@ -1,4 +1,4 @@
-# Identifying Senstive Information Leakage from Neural Taggers
+# Identifying Sensitive Information Leakage from Neural Taggers
 
 ## General
 This repository collects code and data for the Master's with the title "Identifying Senstive Information Leakage from Neural Taggers".
